@@ -11,6 +11,7 @@ class StorageService {
   }
 
   writeFile(file, meta) {
+    console.log("storage service");
     const filename = +new Date() + meta.filename;
     const path = `${this._folder}/${filename}`;
 

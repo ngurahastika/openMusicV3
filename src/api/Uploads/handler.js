@@ -7,10 +7,10 @@ class UploadsHandler {
     this._albumService = albumService;
     this._validator = validator;
 
-    this.postUploadImageHandler = this.postUploadImageHandler.bind(this);
+    this.postImageHandler = this.postImageHandler.bind(this);
   }
 
-  async postUploadImageHandler(request, h) {
+  async postImageHandler(request, h) {
     console.log("1");
     try {
       const { cover } = request.payload;
@@ -18,9 +18,9 @@ class UploadsHandler {
       this._validator.validateImageHeaders(cover.hapi.headers);
 
       const filename = await this._service.writeFile(cover, cover.hapi);
-      const coverUrl = `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`;
+      const coverUrl = `http://${process.env.HOST}:${process.env.PORT}/Upload/images/${filename}`;
 
-      await this._albumsService.addCoverAlbumById(id, coverUrl);
+      await this._albumService.addCoverAlbumById(id, coverUrl);
       const response = h.response({
         status: "success",
         message: "Sampul berhasil diunggah",
